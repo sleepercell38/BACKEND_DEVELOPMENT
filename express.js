@@ -1,6 +1,8 @@
 const express= require('express')
 const morgan=require("morgan")
 const app= express()
+const databaseconnections = require("./config/db")
+const User= require("./models/user")
 
 app.use((req,res,next)=>{
     console.log("this is a middle ware")  //basically this function would run everytime we hit a route or request to the server
