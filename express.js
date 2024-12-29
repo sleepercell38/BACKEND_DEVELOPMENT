@@ -32,6 +32,53 @@ app.post("/formdata",(req,res)=>{
     res.send("data recieved")
 })
 
+app.get("/register",(req,res)=>{
+    res.render('form')
+})
+app.post("/register",async(req,res)=>{              //CRUD OPERATIONS - Creating the userdata in the database by bringing the data from the frontend to the server
+     const {name , email , password} = req.body
+    const data=  User.create({
+         username :name,
+            email:email,
+            password:password,
+      })
+        res.send("data recieved")
+})
+
+app.get("/readdata",(req,res)=>{
+       User.find({                              //CRUD OPERATIONS - Reading the data from the datatbase
+        username:"vishal"                      // basically to read the database data we gave two types of rading technique
+       }).then((user)=>{                      //1- find() gets you as many data as the condition fullfills or all the datav if there is no condition
+        res.send(user)                       // 2- findOne() gets you only one data 
+       })
+})
+
+
+
+app.get("/update", async(req,res)=>{
+    await  User.findOneAndUpdate({               // updating a data in the database 
+        username:"vishal"
+    },{
+        email :"vishalpillai04@gmail.com"
+    }).then((user)=>{                           //remember the update method is an async function so we have to use the then method to get the data
+        res.send(user)
+    })
+    }
+  
+)
+
+app.get("/delete",async(req,res)=>{
+     await User.findOneAndDelete({
+        username : "vishal"                      //deleting a data from the database
+     }).then((user)=>{
+        res.send(user)
+     })
+})
+
+
+
+
+
 app.listen(6969)
 
 //middleware- middleware is a function that runs when we change a route or request the server for something then the 
