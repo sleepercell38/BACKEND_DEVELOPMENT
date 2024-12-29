@@ -74,9 +74,19 @@ app.get("/delete",async(req,res)=>{
         res.send(user)
      })
 })
+ app.get("/updation",(req,res)=>{
+    res.render("updation")
+ })
 
-
-
+app.post("/updation",(req,res)=>{
+    const {name , email , password} =req.body
+    User.findOneAndUpdate({
+        username:name
+    },{
+        email:email,
+        password:password
+    }).then(res.send("userdata has been updated"))
+})
 
 
 app.listen(6969)
